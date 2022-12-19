@@ -2,6 +2,7 @@
 # https://hub.docker.com/r/bitnami/rabbitmq/tags
 # https://github.com/marcel-dempers/docker-development-youtube-series/blob/master/messaging/rabbitmq/applications/publisher/deployment.yaml
 # https://aws.amazon.com/premiumsupport/knowledge-center/eks-troubleshoot-ebs-volume-mounts/
+# https://docs.bitnami.com/kubernetes/get-started-eks/
 
 helm repo list
 
