@@ -84,7 +84,7 @@ module "eks" {
   source  = "registry.terraform.io/terraform-aws-modules/eks/aws"
   version = "17.24.0"
 
-  cluster_version           = "1.21"
+  cluster_version           = "1.23"
   cluster_name              = "cloudgeeks-eks-dev"
   vpc_id                    = module.eks_vpc.vpc_id
   subnets                   = module.eks_vpc.private_subnets
