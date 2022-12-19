@@ -2,6 +2,14 @@
 # https://hub.docker.com/r/bitnami/rabbitmq/tags
 # https://github.com/marcel-dempers/docker-development-youtube-series/blob/master/messaging/rabbitmq/applications/publisher/deployment.yaml
 
+helm repo list
+
+helm repo update
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+helm dependency build
+
 export USERNAME='cloudgeeks'
 export PASSWORD='cloudgeeksca'
 export ERLANG_COOKIE='cloudgeeksca'
