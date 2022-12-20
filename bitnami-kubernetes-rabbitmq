@@ -37,6 +37,7 @@ helm upgrade --install rabbit --namespace rabbit --create-namespace ./ -f values
     --set auth.erlangCookie=${ERLANG_COOKIE} \
     --set metrics.enabled=true \
     --set persistence.size=10Gi \
+    --set persistence.enabled=true \
     --set image.tag=3.10.13
 
 
