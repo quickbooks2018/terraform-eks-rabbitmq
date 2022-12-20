@@ -4,7 +4,9 @@
 # https://aws.amazon.com/premiumsupport/knowledge-center/eks-troubleshoot-ebs-volume-mounts/
 # https://docs.bitnami.com/kubernetes/get-started-eks/
 
+#####################################
 # eks csi container storage interface
+#####################################
 # https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/install.md
 helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
 helm repo update
