@@ -4,6 +4,10 @@
 # https://aws.amazon.com/premiumsupport/knowledge-center/eks-troubleshoot-ebs-volume-mounts/
 # https://docs.bitnami.com/kubernetes/get-started-eks/
 
+# eks csi container storage interface
+# https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi-migration-faq.html
+# https://docs.aws.amazon.com/eks/latest/userguide/managing-ebs-csi.html
+
 helm repo list
 
 helm repo update
