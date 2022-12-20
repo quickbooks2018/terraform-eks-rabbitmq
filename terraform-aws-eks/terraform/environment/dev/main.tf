@@ -15,19 +15,23 @@ terraform {
   required_version = "~> 1.0"
 }
 
+locals {
+  workers_role_name = "eks-workers-role"
+}
+
 
 ### Backend ###
 # S3
 ###############
 
-terraform {
+ terraform {
   backend "s3" {
     bucket         = "cloudgeeksca-terraform"
     key            = "env/dev/cloudgeeksca-dev.tfstate"
     region         = "us-east-1"
    # dynamodb_table = "cloudgeeks-dev-terraform-backend-state-lock"
   }
-}
+} 
 
 #  Error: configmaps "aws-auth" already exists
 #  Solution: kubectl delete configmap aws-auth -n kube-system
@@ -88,7 +92,7 @@ module "eks" {
   cluster_name              = "cloudgeeks-eks-dev"
   vpc_id                    = module.eks_vpc.vpc_id
   subnets                   = module.eks_vpc.private_subnets
-  workers_role_name         = "iam-eks-workers-role"
+  workers_role_name         = local.workers_role_name
   create_eks                = true
   manage_aws_auth           = false
   write_kubeconfig          = false
@@ -129,4 +133,36 @@ module "eks" {
     "karpenter.sh/discovery" = var.cluster_name
   }
 
+}
+
+
+
+##############################################################
+# AmazonEKSClusterPolicy & AmazonEKSServicePolicy are required
+##############################################################
+
+# Get the policy by name
+data "aws_iam_policy" "AmazonEKSClusterPolicy" {
+  name = "AmazonEKSClusterPolicy"
+}
+
+# Attach the policy to the existing role
+resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy_attachment" {
+  role       = local.workers_role_name
+  policy_arn = data.aws_iam_policy.AmazonEKSClusterPolicy.arn
+  depends_on = [module.eks.node_groups]
+}
+
+
+# Get the policy by name
+data "aws_iam_policy" "AmazonEKSServicePolicy" {
+  name = "AmazonEKSServicePolicy"
+}
+
+
+# Attach the policy to the existing role
+resource "aws_iam_role_policy_attachment" "AmazonEKSServicePolicy_attachment" {
+  role       = local.workers_role_name
+  policy_arn = data.aws_iam_policy.AmazonEKSServicePolicy.arn
+  depends_on = [module.eks.node_groups]
 }
